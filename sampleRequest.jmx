@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Claude Chatbot — Performance Test Framework">
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="CLAUDE_API_KEY" elementType="Argument">
+            <stringProp name="Argument.name">CLAUDE_API_KEY</stringProp>
+            <stringProp name="Argument.value">${__P(claude.api.key,REPLACE_WITH_YOUR_API_KEY)}</stringProp>
+            <stringProp name="Argument.desc">Pass at runtime: -Jclaude.api.key=sk-ant-xxxx</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="API_HOST" elementType="Argument">
+            <stringProp name="Argument.name">API_HOST</stringProp>
+            <stringProp name="Argument.value">api.anthropic.com</stringProp>
+            <stringProp name="Argument.desc">Direct API. For AWS Bedrock: bedrock-runtime.{region}.amazonaws.com</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ANTHROPIC_VERSION" elementType="Argument">
+            <stringProp name="Argument.name">ANTHROPIC_VERSION</stringProp>
+            <stringProp name="Argument.value">2023-06-01</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="MODEL" elementType="Argument">
+            <stringProp name="Argument.name">MODEL</stringProp>
+            <stringProp name="Argument.value">${__P(model,claude-haiku-4-5)}</stringProp>
+            <stringProp name="Argument.desc">Haiku for load tests, Sonnet/Opus for integration</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="MAX_TOKENS" elementType="Argument">
+            <stringProp name="Argument.name">MAX_TOKENS</stringProp>
+            <stringProp name="Argument.value">512</stringProp>
+            <stringProp name="Argument.desc">Max output tokens. Increase if stop_reason=max_tokens in logs.</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="SYSTEM_PROMPT" elementType="Argument">
+            <stringProp name="Argument.name">SYSTEM_PROMPT</stringProp>
+            <stringProp name="Argument.value">You are a helpful customer service assistant. Answer concisely and accurately.</stringProp>
+            <stringProp name="Argument.desc">The system prompt for the chatbot under test</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="NUM_THREADS" elementType="Argument">
+            <stringProp name="Argument.name">NUM_THREADS</stringProp>
+            <stringProp name="Argument.value">${__P(threads,5)}</stringProp>
+            <stringProp name="Argument.desc">Concurrent users. Baseline=1, Load=10, Stress=25</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RAMP_UP_SECONDS" elementType="Argument">
+            <stringProp name="Argument.name">RAMP_UP_SECONDS</stringProp>
+            <stringProp name="Argument.value">${__P(rampup,30)}</stringProp>
+            <stringProp name="Argument.desc">Seconds to add all threads. 0 for instant ramp-up.</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="DURATION_SECONDS" elementType="Argument">
+            <stringProp name="Argument.name">DURATION_SECONDS</stringProp>
+            <stringProp name="Argument.value">${__P(duration,180)}</stringProp>
+            <stringProp name="Argument.desc">Test duration in seconds after ramp-up completes.</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="P95_THRESHOLD_MS" elementType="Argument">
+            <stringProp name="Argument.name">P95_THRESHOLD_MS</stringProp>
+            <stringProp name="Argument.value">10000</stringProp>
+            <stringProp name="Argument.desc">SLA gate: sample fails if response exceeds this ms</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PROMPTS_CSV" elementType="Argument">
+            <stringProp name="Argument.name">PROMPTS_CSV</stringProp>
+            <stringProp name="Argument.value">scripts/chatbot-prompts.csv</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RESULTS_DIR" elementType="Argument">
+            <stringProp name="Argument.name">RESULTS_DIR</stringProp>
+            <stringProp name="Argument.value">scripts/results</stringProp>
+            <stringProp name="Argument.desc">Create this directory before first run: mkdir scripts\results</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults">
+        <intProp name="HTTPSampler.connect_timeout">10000</intProp>
+        <intProp name="HTTPSampler.response_timeout">60000</intProp>
+        <stringProp name="HTTPSampler.domain">${API_HOST}</stringProp>
+        <stringProp name="HTTPSampler.port">443</stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Setup: Clean Results Directory">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">0</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Cleanup Results Files">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="script">
+// Reset accumulated stats from any prior run so next run starts fresh
+props.remove(&quot;sphere_agg&quot;)
+props.remove(&quot;sphere_results_dir&quot;)
+props.remove(&quot;sphere_tokens&quot;)
+
+// Delete old result files so each run starts with clean files (no cross-run appending)
+def resultsDir = vars.get(&quot;RESULTS_DIR&quot;) ?: &quot;scripts/results&quot;
+[&quot;summary.csv&quot;, &quot;aggregate.csv&quot;, &quot;errors.jtl&quot;].each { fname -&gt;
+    def f = new File(&quot;${resultsDir}/${fname}&quot;)
+    if (f.exists()) {
+        f.delete()
+        log.info(&quot;[SETUP] Deleted ${f.absolutePath}&quot;)
+    }
+}
+log.info(&quot;[SETUP] Results directory clean: ${resultsDir}&quot;)
+          </stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Chatbot Load Test — ${NUM_THREADS} Users">
+        <stringProp name="ThreadGroup.num_threads">${NUM_THREADS}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RAMP_UP_SECONDS}</stringProp>
+        <stringProp name="ThreadGroup.duration">${DURATION_SECONDS}</stringProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Chatbot Prompts — CSV Data Source" enabled="true">
+          <stringProp name="filename">${PROMPTS_CSV}</stringProp>
+          <stringProp name="variableNames">prompt,scenario,expected_max_tokens</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="quotedData">true</boolProp>
+          <stringProp name="fileEncoding"></stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Claude API Headers" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">x-api-key</stringProp>
+              <stringProp name="Header.value">${CLAUDE_API_KEY}</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">anthropic-version</stringProp>
+              <stringProp name="Header.value">${ANTHROPIC_VERSION}</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Rate Limiter: 30 req/min (all threads)" enabled="true">
+          <intProp name="calcMode">1</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>30.0</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Chatbot Turn: ${scenario}" enabled="true">
+          <boolProp name="TransactionController.parent">true</boolProp>
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Build Request Body" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="script">
+import groovy.json.JsonOutput
+
+def prompt       = vars.get(&quot;prompt&quot;)        ?: &quot;Hello&quot;
+def model        = vars.get(&quot;MODEL&quot;)         ?: &quot;claude-haiku-4-5&quot;
+def maxTokens    = (vars.get(&quot;MAX_TOKENS&quot;)   ?: &quot;512&quot;) as int
+def systemPrompt = vars.get(&quot;SYSTEM_PROMPT&quot;) ?: &quot;&quot;
+
+def bodyMap = [
+    model     : model,
+    max_tokens: maxTokens,
+    messages  : [
+        [role: &quot;user&quot;, content: prompt]
+    ]
+]
+
+// Include system prompt only when non-empty
+if (systemPrompt?.trim()) {
+    bodyMap[&quot;system&quot;] = systemPrompt
+}
+
+vars.put(&quot;requestBody&quot;, JsonOutput.toJson(bodyMap))
+            </stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /v1/messages" enabled="true">
+            <stringProp name="HTTPSampler.path">/v1/messages</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${requestBody}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert: HTTP 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Expected HTTP 200 — check API key, model name, and rate limits</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">8</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert: Response Has Content" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1891231509">&quot;content&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Response body must contain content field</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert: No Error Object" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1184281156">&quot;error&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message">Response must not contain error — possible rate limit, auth failure, or invalid model</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">6</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="SLA: Response within ${P95_THRESHOLD_MS}ms" enabled="true">
+              <stringProp name="DurationAssertion.duration">${P95_THRESHOLD_MS}</stringProp>
+            </DurationAssertion>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Extract + Compute Chatbot Metrics" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="script">
+import groovy.json.JsonSlurper
+
+def result       = prev
+def elapsedMs    = result.getTime()
+def responseBody = result.getResponseDataAsString()
+def scenario     = vars.get(&quot;scenario&quot;) ?: &quot;unknown&quot;
+
+// ── Parse JSON response ───────────────────────────────────────────────────
+long   inputTok   = 0
+long   outputTok  = 0
+String stopReason = &quot;unknown&quot;
+String respText   = &quot;EMPTY_RESPONSE&quot;
+
+if (responseBody) {
+    try {
+        def json  = new JsonSlurper().parseText(responseBody)
+        inputTok  = (json.usage?.input_tokens  ?: 0) as long
+        outputTok = (json.usage?.output_tokens ?: 0) as long
+        stopReason = json.stop_reason ?: &quot;unknown&quot;
+        respText   = json.content?.getAt(0)?.text ?: &quot;EMPTY_RESPONSE&quot;
+    } catch (Exception e) {
+        log.warn(&quot;[PERF] JSON parse error for scenario=${scenario}: &quot; + e.message)
+    }
+}
+
+vars.put(&quot;input_tokens&quot;,  inputTok.toString())
+vars.put(&quot;output_tokens&quot;, outputTok.toString())
+vars.put(&quot;stop_reason&quot;,   stopReason)
+vars.put(&quot;response_text&quot;, respText)
+
+// ── Derived metrics ───────────────────────────────────────────────────────
+double tokPerSec = (elapsedMs &gt; 0) ? (outputTok / (elapsedMs / 1000.0)).round(2) : 0
+
+// Haiku 4.5 pricing: $1.00/M input tokens, $5.00/M output tokens
+double cost = ((inputTok / 1_000_000.0) * 1.00 + (outputTok / 1_000_000.0) * 5.00).round(6)
+
+def band = elapsedMs &lt; 2000  ? &quot;FAST&quot;
+         : elapsedMs &lt; 5000  ? &quot;OK&quot;
+         : elapsedMs &lt; 10000 ? &quot;SLOW&quot;
+         :                       &quot;TIMEOUT&quot;
+
+boolean hasContent = respText &amp;&amp; respText != &quot;EMPTY_RESPONSE&quot; &amp;&amp; respText.length() &gt; 0
+
+log.info(String.format(
+    '[PERF] %-22s | %6dms [%7s] | in=%-4d out=%-4d tps=%-6.1f | cost=%-9.6f | stop=%-12s | content=%b',
+    scenario, elapsedMs, band, inputTok, outputTok, tokPerSec, cost, stopReason, hasContent
+))
+
+vars.put(&quot;perf_tps&quot;,  tokPerSec.toString())
+vars.put(&quot;perf_cost&quot;, cost.toString())
+vars.put(&quot;perf_band&quot;, band)
+
+// ── SLA / quality gates ───────────────────────────────────────────────────
+if (stopReason == &quot;max_tokens&quot;) {
+    result.setSuccessful(false)
+    result.setResponseMessage(&quot;TRUNCATED: max_tokens reached — raise MAX_TOKENS in User Defined Variables&quot;)
+}
+
+if (!hasContent &amp;&amp; result.isSuccessful()) {
+    result.setSuccessful(false)
+    result.setResponseMessage(&quot;EMPTY_RESPONSE: content[0].text was missing or empty&quot;)
+}
+
+// Store for downstream samplers in multi-turn conversation scenarios
+vars.put(&quot;perf_tps&quot;,  tokPerSec.toString())
+vars.put(&quot;perf_cost&quot;, cost.toString())
+vars.put(&quot;perf_band&quot;, band)
+
+// Accumulate tokens directly into sphere_agg — same bucket the listener uses for timing
+synchronized(props) {
+    if (!props.containsKey(&quot;sphere_agg&quot;)) {
+        props.put(&quot;sphere_agg&quot;, new java.util.concurrent.ConcurrentHashMap())
+    }
+    if (!props.containsKey(&quot;sphere_results_dir&quot;)) {
+        props.put(&quot;sphere_results_dir&quot;, vars.get(&quot;RESULTS_DIR&quot;) ?: &quot;scripts/results&quot;)
+    }
+}
+def agg        = props.get(&quot;sphere_agg&quot;) as java.util.concurrent.ConcurrentHashMap
+def transLabel = &quot;Chatbot Turn: &quot; + scenario
+def bucket     = agg.computeIfAbsent(transLabel, { k -&gt;
+    [count     : new java.util.concurrent.atomic.AtomicLong(0),
+     errors    : new java.util.concurrent.atomic.AtomicLong(0),
+     samples   : new java.util.concurrent.CopyOnWriteArrayList(),
+     inputToks : new java.util.concurrent.atomic.AtomicLong(0),
+     outputToks: new java.util.concurrent.atomic.AtomicLong(0),
+     totalCost : new java.util.concurrent.atomic.AtomicLong(0)]
+})
+bucket.inputToks.addAndGet(inputTok)
+bucket.outputToks.addAndGet(outputTok)
+bucket.totalCost.addAndGet((cost * 1_000_000).toLong())
+
+// DEBUG — remove after confirming tokens work
+try {
+    def dbg = new File((vars.get(&quot;RESULTS_DIR&quot;) ?: &quot;scripts/results&quot;) + &quot;/debug.txt&quot;)
+    dbg.append(&quot;[POSTPROC] scenario=${scenario} bodyLen=${responseBody?.length()} inputTok=${inputTok} outputTok=${outputTok} transLabel=${transLabel}\n&quot;)
+} catch(Exception _ex) {}
+              </stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>true</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">${RESULTS_DIR}/summary.csv</stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="TearDown: Write Aggregate CSV">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">0</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </PostThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Write aggregate.csv" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="script">
+// Read RESULTS_DIR from props (stored by the JSR223 Listener during the run)
+def resultsDir = props.get(&quot;sphere_results_dir&quot;) ?: &quot;scripts/results&quot;
+def map = props.get(&quot;sphere_agg&quot;)
+
+// ── Debug dump ────────────────────────────────────────────────────────────────
+new File(&quot;${resultsDir}/debug.txt&quot;).withWriter(&quot;UTF-8&quot;) { dw -&gt;
+    dw.writeLine(&quot;sphere_agg present: ${map != null}&quot;)
+    dw.writeLine(&quot;sphere_agg empty:   ${map?.isEmpty()}&quot;)
+    dw.writeLine(&quot;entry count:        ${map?.size()}&quot;)
+    map?.each { k, v -&gt;
+        dw.writeLine(&quot;--- ${k} ---&quot;)
+        dw.writeLine(&quot;  count:     ${v?.count?.get()}&quot;)
+        dw.writeLine(&quot;  errors:    ${v?.errors?.get()}&quot;)
+        dw.writeLine(&quot;  samples#:  ${v?.samples?.size()}&quot;)
+        dw.writeLine(&quot;  inputToks: ${v?.inputToks?.get()}&quot;)
+        dw.writeLine(&quot;  outputToks:${v?.outputToks?.get()}&quot;)
+        dw.writeLine(&quot;  totalCost: ${v?.totalCost?.get()}&quot;)
+        dw.writeLine(&quot;  bucket class: ${v?.getClass()?.simpleName}&quot;)
+        dw.writeLine(&quot;  bucket keys:  ${v?.keySet()}&quot;)
+    }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
+if (!map || map.isEmpty()) {
+    log.warn(&quot;[AGG] No accumulated sample data found — nothing to write&quot;)
+    return
+}
+
+def file = new File(&quot;${resultsDir}/aggregate.csv&quot;)
+file.parentFile?.mkdirs()
+
+file.withWriter(&quot;UTF-8&quot;) { w -&gt;
+    w.writeLine(&quot;Label,# Samples,Avg (ms),Min (ms),Max (ms),P50 (ms),P90 (ms),P95 (ms),P99 (ms),Error %,Total Input Tokens,Total Output Tokens,Avg Input Tokens,Avg Output Tokens,Total Cost (USD)&quot;)
+    map.entrySet().sort { it.key }.each { entry -&gt;
+        def label  = entry.key
+        def bucket = entry.value
+        def sorted = bucket.samples.toList().sort()
+        def n      = sorted.size()
+        if (n == 0) return
+
+        def avg    = (sorted.sum() / n) as long
+        def p50    = sorted[(int)(n * 0.50)]
+        def p90    = sorted[Math.min((int)(n * 0.90), n - 1)]
+        def p95    = sorted[Math.min((int)(n * 0.95), n - 1)]
+        def p99    = sorted[Math.min((int)(n * 0.99), n - 1)]
+        def errPct = String.format(&quot;%.1f%%&quot;, bucket.errors.get() / bucket.count.get() * 100)
+
+        def totalIn      = bucket.inputToks?.get()  ?: 0L
+        def totalOut     = bucket.outputToks?.get() ?: 0L
+        def rawCost      = bucket.totalCost ? (bucket.totalCost.get() / 1_000_000.0) : 0.0
+        def totalCostUSD = String.format(&quot;%.6f&quot;, rawCost)
+        def avgIn        = n &gt; 0 ? (totalIn  / n) as long : 0L
+        def avgOut       = n &gt; 0 ? (totalOut / n) as long : 0L
+
+        w.writeLine(&quot;\&quot;${label}\&quot;,${n},${avg},${sorted.first()},${sorted.last()},${p50},${p90},${p95},${p99},${errPct},${totalIn},${totalOut},${avgIn},${avgOut},${totalCostUSD}&quot;)
+    }
+}
+
+log.info(&quot;[AGG] Aggregate report written: ${file.absolutePath}&quot;)
+
+// Clear accumulated stats so the next run starts with an empty map
+props.remove(&quot;sphere_agg&quot;)
+props.remove(&quot;sphere_results_dir&quot;)
+log.info(&quot;[AGG] Stats cleared for next run&quot;)
+          </stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Accumulate Stats per Label" enabled="true">
+        <stringProp name="cacheKey">true</stringProp>
+        <stringProp name="scriptLanguage">groovy</stringProp>
+        <stringProp name="script">
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.atomic.AtomicLong
+
+def label   = sampleResult.getSampleLabel()
+def elapsed = sampleResult.getTime() as long
+def ok      = sampleResult.isSuccessful()
+
+// Skip infrastructure samples from Setup/TearDown thread groups
+def threadName = sampleResult.getThreadName() ?: &quot;&quot;
+if (threadName.contains(&quot;TearDown&quot;) || threadName.contains(&quot;setUp&quot;) || threadName.contains(&quot;Setup&quot;)) return
+
+// Lazy-init the global accumulator map in JMeter properties (thread-safe)
+synchronized (props) {
+    if (!props.containsKey(&quot;sphere_agg&quot;)) {
+        props.put(&quot;sphere_agg&quot;, new ConcurrentHashMap())
+    }
+    // Also capture RESULTS_DIR here — vars is available in listeners
+    if (!props.containsKey(&quot;sphere_results_dir&quot;)) {
+        props.put(&quot;sphere_results_dir&quot;, vars.get(&quot;RESULTS_DIR&quot;) ?: &quot;scripts/results&quot;)
+    }
+}
+
+def map    = props.get(&quot;sphere_agg&quot;) as ConcurrentHashMap
+def bucket = map.computeIfAbsent(label, { k -&gt;
+    [count     : new AtomicLong(0),
+     errors    : new AtomicLong(0),
+     samples   : new CopyOnWriteArrayList(),
+     inputToks : new AtomicLong(0),
+     outputToks: new AtomicLong(0),
+     totalCost : new AtomicLong(0)]
+})
+
+bucket.count.incrementAndGet()
+if (!ok) bucket.errors.incrementAndGet()
+bucket.samples.add(elapsed)
+        </stringProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="filename"></stringProp>
+      </JSR223Listener>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree (Errors Only)" enabled="true">
+        <boolProp name="ResultCollector.error_logging">true</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>true</responseData>
+            <samplerData>true</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>true</responseHeaders>
+            <requestHeaders>true</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">${RESULTS_DIR}/errors.jtl</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

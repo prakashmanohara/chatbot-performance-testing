@@ -1,0 +1,97 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1784209487119,1067,Cleanup Results Files,200,OK,Setup: Clean Results Directory 1-1,text,true,,0,0,1,1,null,0,0,0
+1784209488431,2194,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2197,538,1,1,null,0,476,422
+1784209488613,2194,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2197,538,1,1,https://api.anthropic.com/v1/messages,2191,0,422
+1784209488431,2194,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2197,538,1,1,null,0,476,422
+1784209488613,2194,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2197,538,1,1,https://api.anthropic.com/v1/messages,2191,0,422
+1784209491108,3196,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2339,536,1,1,null,0,5,32
+1784209491110,3196,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2339,536,1,1,https://api.anthropic.com/v1/messages,3195,0,32
+1784209491108,3196,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2339,536,1,1,null,0,5,32
+1784209491110,3196,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2339,536,1,1,https://api.anthropic.com/v1/messages,3195,0,32
+1784209494310,2378,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2242,536,1,1,null,0,5,25
+1784209494311,2378,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2242,536,1,1,https://api.anthropic.com/v1/messages,2377,0,25
+1784209494310,2378,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2242,536,1,1,null,0,5,25
+1784209494311,2378,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2242,536,1,1,https://api.anthropic.com/v1/messages,2377,0,25
+1784209496696,1937,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2095,536,1,1,null,0,5,25
+1784209496697,1937,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2095,536,1,1,https://api.anthropic.com/v1/messages,1936,0,25
+1784209496696,1937,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2095,536,1,1,null,0,5,25
+1784209496697,1937,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2095,536,1,1,https://api.anthropic.com/v1/messages,1936,0,25
+1784209498639,4325,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2358,534,1,1,null,0,58,23
+1784209498694,4325,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2358,534,1,1,https://api.anthropic.com/v1/messages,4324,0,23
+1784209498639,4325,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2358,534,1,1,null,0,58,23
+1784209498694,4325,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2358,534,1,1,https://api.anthropic.com/v1/messages,4324,0,23
+1784209503023,2761,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,1998,544,1,1,null,0,5,23
+1784209503025,2761,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,1998,544,1,1,https://api.anthropic.com/v1/messages,2760,0,23
+1784209503023,2761,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,1998,544,1,1,null,0,5,23
+1784209503025,2761,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,1998,544,1,1,https://api.anthropic.com/v1/messages,2760,0,23
+1784209505791,2869,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2604,541,1,1,null,0,4,24
+1784209505792,2869,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2604,541,1,1,https://api.anthropic.com/v1/messages,2868,0,24
+1784209505791,2869,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2604,541,1,1,null,0,4,24
+1784209505792,2869,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2604,541,1,1,https://api.anthropic.com/v1/messages,2868,0,24
+1784209508665,2848,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,1932,531,1,1,null,0,4,23
+1784209508666,2848,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,1932,531,1,1,https://api.anthropic.com/v1/messages,2847,0,23
+1784209508665,2848,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,1932,531,1,1,null,0,4,23
+1784209508666,2848,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,1932,531,1,1,https://api.anthropic.com/v1/messages,2847,0,23
+1784209511519,2726,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2264,569,1,1,null,0,4,20
+1784209511520,2726,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2264,569,1,1,https://api.anthropic.com/v1/messages,2726,0,20
+1784209511519,2726,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2264,569,1,1,null,0,4,20
+1784209511520,2726,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2264,569,1,1,https://api.anthropic.com/v1/messages,2726,0,20
+1784209514251,2077,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2296,568,1,1,null,0,3,23
+1784209514251,2077,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2296,568,1,1,https://api.anthropic.com/v1/messages,2076,0,23
+1784209514251,2077,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2296,568,1,1,null,0,3,23
+1784209514251,2077,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2296,568,1,1,https://api.anthropic.com/v1/messages,2076,0,23
+1784209516332,2192,Chatbot Turn: account_management,200,,Chatbot Load Test — 1 Users 1-1,,true,,2293,550,1,1,null,0,0,0
+1784209516333,2191,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2293,550,1,1,https://api.anthropic.com/v1/messages,2190,0,23
+1784209516332,2192,Chatbot Turn: account_management,200,,Chatbot Load Test — 1 Users 1-1,,true,,2293,550,1,1,null,0,0,0
+1784209516333,2191,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2293,550,1,1,https://api.anthropic.com/v1/messages,2190,0,23
+1784209518531,197,Write aggregate.csv,200,OK,TearDown: Write Aggregate CSV 1-1,text,true,,0,0,1,1,null,0,0,0
+1786000868319,1774,Cleanup Results Files,200,OK,Setup: Clean Results Directory 1-1,text,true,,0,0,1,1,null,0,0,0
+1786000870447,2280,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2004,538,1,1,null,0,1224,871
+1786000871323,2280,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2004,538,1,1,https://api.anthropic.com/v1/messages,2278,0,871
+1786000870447,2280,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2004,538,1,1,null,0,1224,871
+1786000871323,2280,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2004,538,1,1,https://api.anthropic.com/v1/messages,2278,0,871
+1786000873956,4680,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2417,536,1,1,null,0,10,45
+1786000873962,4680,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2417,536,1,1,https://api.anthropic.com/v1/messages,4678,0,45
+1786000873956,4680,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2417,536,1,1,null,0,10,45
+1786000873962,4680,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2417,536,1,1,https://api.anthropic.com/v1/messages,4678,0,45
+1786000878647,2204,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2327,536,1,1,null,0,4,31
+1786000878648,2204,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2327,536,1,1,https://api.anthropic.com/v1/messages,2203,0,31
+1786000878647,2204,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2327,536,1,1,null,0,4,31
+1786000878648,2204,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2327,536,1,1,https://api.anthropic.com/v1/messages,2203,0,31
+1786000880859,1810,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2227,536,1,1,null,0,7,27
+1786000880861,1810,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2227,536,1,1,https://api.anthropic.com/v1/messages,1809,0,27
+1786000880859,1810,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2227,536,1,1,null,0,7,27
+1786000880861,1810,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2227,536,1,1,https://api.anthropic.com/v1/messages,1809,0,27
+1786000882679,2408,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2328,534,1,1,null,0,191,27
+1786000882867,2408,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2328,534,1,1,https://api.anthropic.com/v1/messages,2407,0,27
+1786000882679,2408,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2328,534,1,1,null,0,191,27
+1786000882867,2408,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2328,534,1,1,https://api.anthropic.com/v1/messages,2407,0,27
+1786000885279,1726,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2182,544,1,1,null,0,5,24
+1786000885280,1726,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2182,544,1,1,https://api.anthropic.com/v1/messages,1726,0,24
+1786000885279,1726,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2182,544,1,1,null,0,5,24
+1786000885280,1726,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2182,544,1,1,https://api.anthropic.com/v1/messages,1726,0,24
+1786000887011,2638,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2466,541,1,1,null,0,276,25
+1786000887283,2638,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2466,541,1,1,https://api.anthropic.com/v1/messages,2637,0,25
+1786000887011,2638,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2466,541,1,1,null,0,276,25
+1786000887283,2638,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2466,541,1,1,https://api.anthropic.com/v1/messages,2637,0,25
+1786000889926,1311,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2054,531,1,1,null,0,5,29
+1786000889927,1311,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2054,531,1,1,https://api.anthropic.com/v1/messages,1310,0,29
+1786000889926,1311,Chatbot Turn: simple_query,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2054,531,1,1,null,0,5,29
+1786000889927,1311,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2054,531,1,1,https://api.anthropic.com/v1/messages,1310,0,29
+1786000891243,2430,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2292,569,1,1,null,0,687,27
+1786000891927,2430,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2292,569,1,1,https://api.anthropic.com/v1/messages,2429,0,27
+1786000891243,2430,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2292,569,1,1,null,0,687,27
+1786000891927,2430,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2292,569,1,1,https://api.anthropic.com/v1/messages,2429,0,27
+1786000894361,2680,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2374,568,1,1,null,0,4,20
+1786000894362,2680,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2374,568,1,1,https://api.anthropic.com/v1/messages,2679,0,20
+1786000894361,2680,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2374,568,1,1,null,0,4,20
+1786000894362,2680,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2374,568,1,1,https://api.anthropic.com/v1/messages,2679,0,20
+1786000897046,2295,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2203,550,1,1,null,0,4,22
+1786000897047,2295,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2203,550,1,1,https://api.anthropic.com/v1/messages,2295,0,22
+1786000897046,2295,Chatbot Turn: account_management,200,"Number of samples in transaction : 1, number of failing samples : 0",Chatbot Load Test — 1 Users 1-1,,true,,2203,550,1,1,null,0,4,22
+1786000897047,2295,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2203,550,1,1,https://api.anthropic.com/v1/messages,2295,0,22
+1786000899347,2449,Chatbot Turn: account_management,200,,Chatbot Load Test — 1 Users 1-1,,true,,2375,560,1,1,null,0,0,0
+1786000899348,2448,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2375,560,1,1,https://api.anthropic.com/v1/messages,2447,0,20
+1786000899347,2449,Chatbot Turn: account_management,200,,Chatbot Load Test — 1 Users 1-1,,true,,2375,560,1,1,null,0,0,0
+1786000899348,2448,POST /v1/messages,200,OK,Chatbot Load Test — 1 Users 1-1,text,true,,2375,560,1,1,https://api.anthropic.com/v1/messages,2447,0,20
+1786000901803,277,Write aggregate.csv,200,OK,TearDown: Write Aggregate CSV 1-1,text,true,,0,0,1,1,null,0,0,0

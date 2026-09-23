@@ -1,0 +1,3 @@
+Label,# Samples,Avg (ms),Min (ms),Max (ms),P50 (ms),P90 (ms),P95 (ms),P99 (ms),Error %,Total Input Tokens,Total Output Tokens,Avg Input Tokens,Avg Output Tokens,Total Cost (USD)
+"Chatbot Turn: account_management",4,2463,2295,2680,2449,2680,2680,2680,0.0%,138,568,34,142,0.002978
+"Chatbot Turn: simple_query",8,2382,1311,4680,2280,4680,4680,4680,0.0%,227,974,28,121,0.005097

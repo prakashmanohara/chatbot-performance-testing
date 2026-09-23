@@ -1,0 +1,21 @@
+sphere_agg present: true
+sphere_agg empty:   false
+entry count:        2
+--- Chatbot Turn: account_management ---
+  count:     4
+  errors:    0
+  samples#:  4
+  inputToks: 138
+  outputToks:568
+  totalCost: 2978
+  bucket class: LinkedHashMap
+  bucket keys:  [count, errors, samples, inputToks, outputToks, totalCost]
+--- Chatbot Turn: simple_query ---
+  count:     8
+  errors:    0
+  samples#:  8
+  inputToks: 227
+  outputToks:974
+  totalCost: 5097
+  bucket class: LinkedHashMap
+  bucket keys:  [count, errors, samples, inputToks, outputToks, totalCost]

@@ -1,0 +1,13 @@
+Required:
+Claude API key for end point or use any local modals
+
+Steps to run:
+1. Navigate to bin folder, create a script folder and paste the .jmx files there
+2. Inside the scripts folder create a new folder and name it as results: On running the script it will store the aggregate report, summary report, logs and debug
+3. Open the command prompt or terminal. navigate to the jmeter bin folder:
+cd C:\Users\Prakash.Manoharan\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin>
+4. Run this command:
+.\jmeter.bat -n -t scripts\sampleRequest.jmx  -Dclaude.api.key=sk-ant-api03-nQDFvtsnS2NPC_uoOzhNEZzvDxzvjFbMGZa3oU6mJeMFdR6WrRQ_bWLjbylIcjDKVpnGkSZXxiKimBbqWw-sp3iyQAA -Dthreads=1 -Drampup=2 -Dduration=30 -l scripts\results\summary.csv -j scripts\results\jmeter.log
+
+This command contains the number of thread to run, rampup period and the duration in seconds. Also it contains locations to save the results + logs.
+

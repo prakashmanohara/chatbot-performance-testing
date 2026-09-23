@@ -1,0 +1,38 @@
+prompt,scenario,expected_max_tokens
+"What are your business hours?",simple_query,50
+"How do I reset my password?",simple_query,80
+"What is your return policy?",simple_query,100
+"Do you offer free shipping?",simple_query,60
+"How can I track my order?",simple_query,80
+"What payment methods do you accept?",simple_query,70
+"How do I cancel my subscription?",simple_query,100
+"Where are you located?",simple_query,50
+"I want to update my account email address. How do I do that?",account_management,120
+"I need to change my billing address before my next invoice.",account_management,120
+"Can I have multiple users on one account?",account_management,100
+"How do I download my invoice for the past 3 months?",account_management,120
+"I placed an order 2 days ago and it still shows as processing. Can you help?",order_support,150
+"I received the wrong item in my delivery. What should I do?",order_support,150
+"My package was marked as delivered but I never received it.",order_support,150
+"I need to change the delivery address for an order I just placed.",order_support,130
+"Can you explain the difference between the Basic and Premium plans?",product_inquiry,200
+"Does your product support integration with third-party APIs?",product_inquiry,180
+"What are the data storage limits on each pricing tier?",product_inquiry,150
+"Is there a free trial available before I commit to a paid plan?",product_inquiry,120
+"I have been charged twice for the same order. Please resolve this urgently.",complaint,200
+"The product quality I received does not match what was shown on the website.",complaint,200
+"I have been waiting 3 weeks for a response from your support team.",complaint,180
+"The feature you advertised is not working as described.",complaint,200
+"How do I integrate your service with Salesforce CRM?",technical_support,250
+"I am getting a 401 Unauthorized error when calling your API.",technical_support,250
+"What is the rate limit for your REST API?",technical_support,150
+"How do I set up webhook notifications for order status changes?",technical_support,250
+"Explain how machine learning can be used to improve customer service chatbots.",complex_query,350
+"What are the key differences between synchronous and asynchronous API design?",complex_query,300
+"Describe best practices for securing an API that handles sensitive customer data.",complex_query,350
+"How does AWS Bedrock differ from using the Anthropic API directly?",complex_query,300
+"Hi",edge_case_short,30
+"?",edge_case_short,30
+".",edge_case_short,30
+"I need help with something but I am not sure what exactly.",edge_case_vague,100
+"Can you help me with my account order payment billing shipping return refund cancellation?",edge_case_long,200
